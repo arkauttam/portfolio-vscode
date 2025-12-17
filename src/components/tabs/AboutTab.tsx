@@ -128,7 +128,8 @@ export function AboutTab() {
                   {roles[index]}
                 </motion.p>
               </AnimatePresence>
-            </div>            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+            </div>
+            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1">
                 <MapPin size={14} />
                 Kolkata, IND

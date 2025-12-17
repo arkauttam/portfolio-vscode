@@ -65,7 +65,6 @@ export function VSCodeLayout() {
       tabIndex={0}
 
     >
-      {/* Three.js Background */}
       <div className="relative z-10 h-full flex flex-col">
         {/* Title Bar */}
         <TitleBar />

@@ -9,10 +9,16 @@ import {
   ChevronRight,
   Maximize2,
   Minimize2,
-  RefreshCw
+  RefreshCw,
+  Lock
 } from "lucide-react";
 import { Project } from "@/data/data";
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 interface ProjectsTabProps {
   selectedProject: Project | null;
 }
@@ -116,19 +122,36 @@ export function ProjectsTab({ selectedProject }: ProjectsTabProps) {
 
                   {/* Action Buttons */}
                   <div className="flex flex-wrap gap-3 mt-6">
+                    {/* VIEW CODE (PRIVATE PROJECT) */}
                     {selectedProject.github && (
-                      <motion.a
-                        href={selectedProject.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#252526] border border-[#333333] text-[#cccccc] rounded-lg hover:bg-[#2a2d2e] transition-colors"
-                      >
-                        <Github size={18} />
-                        <span>View Code</span>
-                      </motion.a>
+                      <TooltipProvider delayDuration={150}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <motion.button
+                              type="button"
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                              className="inline-flex items-center gap-2 px-4 py-2 bg-[#252526] border border-[#333333] text-[#cccccc] rounded-lg hover:bg-[#2a2d2e] transition-colors cursor-not-allowed"
+                            >
+                              <Github size={18} />
+                              <span>View Code</span>
+                            </motion.button>
+                          </TooltipTrigger>
+
+                          <TooltipContent
+                            side="top"
+                            className="bg-[#1e1e1e] border border-[#333333] text-[#cccccc]"
+                          >
+                            <div className="flex items-center gap-2 text-xs">
+                              <Lock size={12} />
+                              <span>Private Project</span>
+                            </div>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     )}
+
+                    {/* LIVE BUTTON */}
                     {selectedProject.live && (
                       <motion.a
                         href={selectedProject.live}
