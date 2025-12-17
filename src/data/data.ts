@@ -17,6 +17,7 @@ export interface Project {
   impact: string;
   github: string;
   live: string;
+  img: string;
 }
 
 export const projects: Project[] = [
@@ -42,6 +43,7 @@ export const projects: Project[] = [
       "Improved booking completion rate by 40% and handled 100+ daily flight searches with a fast, reliable user experience.",
     github: "https://github.com",
     live: "https://onlinesavaari.com",
+    img: "/savaari.webp",
   },
   {
     id: "ecommerce-platform",
@@ -62,7 +64,8 @@ export const projects: Project[] = [
     impact:
       "Improved page performance by 35% and increased user engagement across all screen sizes.",
     github: "https://github.com",
-    live: "https://vercel.com",
+    live: "https://next-e-commerce.onrender.com",
+    img: "/ecommerce.svg",
   },
   {
     id: "grocery-bays",
@@ -76,7 +79,8 @@ export const projects: Project[] = [
       "Redesigned UI with a clean layout, better spacing, and improved mobile responsiveness.",
     impact: "Reduced bounce rate by 25% and improved mobile user retention.",
     github: "https://github.com",
-    live: "https://netlify.com",
+    live: "https://www.grocerybays.com/",
+    img: "/grocery.png",
   },
   {
     id: "pdf-analyzer",
@@ -96,7 +100,8 @@ export const projects: Project[] = [
     impact:
       "Reduced document review time by 30%, processing 50+ PDFs daily in under 5 seconds.",
     github: "https://github.com",
-    live: "https://vercel.com",
+    live: "https://ai-powered-pdf-analyzer.onrender.com",
+    img: "/pdf.png",
   },
 ];
 export const educationData = [
@@ -190,7 +195,6 @@ export const educationData = [
     gradient: "from-blue-500 to-blue-700",
   },
 ];
-
 
 export interface Experience {
   company: string;

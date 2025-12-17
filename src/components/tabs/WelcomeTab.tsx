@@ -24,8 +24,8 @@ const codeLines = [
   { lineNum: 18, content: "", type: "empty" },
   { lineNum: 19, content: "const developer: Developer = {", type: "const" },
   { lineNum: 20, content: '  name: "Uttam Ghosh",', type: "string" },
-  { lineNum: 21, content: '  title: "Senior AI Engineer",', type: "string" },
-  { lineNum: 22, content: '  focus: ["ML Systems", "LLMs", "Production AI"],', type: "array" },
+  { lineNum: 21, content: '  title: "AI Engineer",', type: "string" },
+  { lineNum: 22, content: '  focus: ["MERN Stack", "Next.js", "React.js","Production AI"],', type: "array" },
   { lineNum: 23, content: "  available: true,", type: "boolean" },
   { lineNum: 24, content: "};", type: "const" },
   { lineNum: 25, content: "", type: "empty" },
@@ -121,9 +121,11 @@ function CodeLine({ line, isActive }: { line: typeof codeLines[0]; isActive: boo
           <span>  </span>
           <span style={{ color: "#9cdcfe" }}>focus</span>
           <span style={{ color: "#d4d4d4" }}>: [</span>
-          <span style={{ color: "#ce9178" }}>"ML Systems"</span>
+          <span style={{ color: "#ce9178" }}>"MERN Stack"</span>
           <span style={{ color: "#d4d4d4" }}>, </span>
-          <span style={{ color: "#ce9178" }}>"LLMs"</span>
+          <span style={{ color: "#ce9178" }}>"Next.js"</span>
+          <span style={{ color: "#d4d4d4" }}>, </span>
+          <span style={{ color: "#ce9178" }}>"React.js"</span>
           <span style={{ color: "#d4d4d4" }}>, </span>
           <span style={{ color: "#ce9178" }}>"Production AI"</span>
           <span style={{ color: "#d4d4d4" }}>],</span>

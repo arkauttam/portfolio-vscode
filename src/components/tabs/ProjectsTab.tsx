@@ -92,15 +92,27 @@ export function ProjectsTab({ selectedProject }: ProjectsTabProps) {
               {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8">
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="p-2 bg-[#0e639c] rounded-lg">
-                      <FileCode className="text-white" size={24} />
-                    </div>
-                    <div>
-                      <h1 className="text-2xl md:text-3xl font-bold text-[#cccccc]">{selectedProject.name}</h1>
-                      <p className="text-[#858585] mt-2">{selectedProject.description}</p>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-3 mb-4">
+                    {/* Avatar */}
+                    <motion.div whileHover={{ scale: 1.05 }} className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-full overflow-hidden bg-[#333333]">
+                      <img
+                        src={`${selectedProject.img}`}
+                        alt={selectedProject.name}
+                        className="w-full h-full object-contain rounded-full"
+                      />
+                    </motion.div>
+
+                    {/* Text Content */}
+                    <div className="flex-1 min-w-0">
+                      <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#cccccc]">
+                        {selectedProject.name}
+                      </h1>
+                      <p className="text-sm  sm:text-base text-[#858585] mt-1 sm:mt-2 leading-relaxed line-clamp-2"  >
+                        {selectedProject.description}
+                      </p>
                     </div>
                   </div>
+
 
                   {/* Action Buttons */}
                   <div className="flex flex-wrap gap-3 mt-6">
@@ -140,7 +152,18 @@ export function ProjectsTab({ selectedProject }: ProjectsTabProps) {
                 <div className="bg-[#252526] border border-[#333333] rounded-lg overflow-hidden">
                   <div className="flex items-center justify-between px-4 py-3 bg-[#1e1e1e] border-b border-[#333333]">
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-[#ff6b6b]"></div>
+                      <motion.div
+                        className="w-3 h-3 rounded-full bg-[#ff6b6b]"
+                        animate={{
+                          scale: [1, 1.4, 1],
+                          opacity: [1, 0.6, 1],
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      />
                       <span className="text-sm font-semibold text-[#cccccc] uppercase tracking-wider">Problem Statement</span>
                     </div>
                     <span className="text-xs text-[#858585]">problem.ts</span>
@@ -155,7 +178,19 @@ export function ProjectsTab({ selectedProject }: ProjectsTabProps) {
                 <div className="bg-[#252526] border border-[#333333] rounded-lg overflow-hidden">
                   <div className="flex items-center justify-between px-4 py-3 bg-[#1e1e1e] border-b border-[#333333]">
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-[#4ec9b0]"></div>
+                      <motion.div
+                        className="w-3 h-3 rounded-full bg-[#03b65d]"
+                        animate={{
+                          scale: [1, 1.4, 1],
+                          opacity: [1, 0.6, 1],
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      />
+
                       <span className="text-sm font-semibold text-[#cccccc] uppercase tracking-wider">Solution Approach</span>
                     </div>
                     <span className="text-xs text-[#858585]">solution.ts</span>
@@ -183,7 +218,18 @@ export function ProjectsTab({ selectedProject }: ProjectsTabProps) {
                 <div className="bg-[#252526] border border-[#333333] rounded-lg overflow-hidden">
                   <div className="flex items-center justify-between px-4 py-3 bg-[#1e1e1e] border-b border-[#333333]">
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-[#3794ff]"></div>
+                      <motion.div
+                        className="w-3 h-3 rounded-full bg-[#3794ff]"
+                        animate={{
+                          scale: [1, 1.4, 1],
+                          opacity: [1, 0.6, 1],
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      />
                       <span className="text-sm font-semibold text-[#cccccc] uppercase tracking-wider">Impact & Results</span>
                     </div>
                     <span className="text-xs text-[#858585]">impact.ts</span>
@@ -209,7 +255,7 @@ export function ProjectsTab({ selectedProject }: ProjectsTabProps) {
         </div>
 
         {/* Live Preview Panel */}
-        <div className="w-full lg:w-1/2 xl:w-2/5 border-t lg:border-t-0 lg:border-l border-[#333333] bg-[#1e1e1e]">
+        <div className="h-fit lg:w-1/2 xl:w-2/5 border-t lg:border-t-0 lg:border-l border-[#333333] bg-[#1e1e1e]">
           <div className="p-4 border-b border-[#333333] bg-[#252526]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -239,13 +285,15 @@ export function ProjectsTab({ selectedProject }: ProjectsTabProps) {
                 </div>
 
                 {/* Preview Controls */}
-                <button
-                  onClick={refreshIframe}
-                  className="p-2 hover:bg-[#2a2d2e] rounded-lg transition-colors"
-                  title="Refresh preview"
+                <a
+                  href={selectedProject.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 bg-[#0e639c] text-white rounded-lg hover:bg-[#1177bb] transition-colors"
+                  title="Open in new tab"
                 >
-                  <RefreshCw size={18} className="text-[#cccccc]" />
-                </button>
+                  <ExternalLink size={18} />
+                </a>
                 <button
                   onClick={toggleFullscreen}
                   className="p-2 hover:bg-[#2a2d2e] rounded-lg transition-colors"
@@ -264,15 +312,14 @@ export function ProjectsTab({ selectedProject }: ProjectsTabProps) {
               <div className="flex-1 bg-[#2a2d2e] rounded-lg px-4 py-2 text-sm font-mono truncate text-[#cccccc]">
                 {selectedProject.live || "https://example.com"}
               </div>
-              <a
-                href={selectedProject.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 bg-[#0e639c] text-white rounded-lg hover:bg-[#1177bb] transition-colors"
-                title="Open in new tab"
+
+              <button
+                onClick={refreshIframe}
+                className="p-2 hover:bg-[#2a2d2e] rounded-lg transition-colors"
+                title="Refresh preview"
               >
-                <ExternalLink size={18} />
-              </a>
+                <RefreshCw size={18} className="text-[#cccccc]" />
+              </button>
             </div>
           </div>
 
@@ -311,18 +358,49 @@ export function ProjectsTab({ selectedProject }: ProjectsTabProps) {
           <div className="p-4 border-t border-[#333333] bg-[#252526]">
             <div className="flex items-center justify-between text-sm text-[#858585]">
               <div className="flex items-center gap-4">
+
                 <span className="flex items-center gap-1">
-                  <div className="w-2 h-2 bg-[#27ca3f] rounded-full"></div>
+                  <motion.div
+                    className="w-2 h-2 bg-[#27ca3f] rounded-full "
+                    animate={{
+                      scale: [1, 1.4, 1],
+                      opacity: [1, 0.6, 1],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
                   Live Preview
                 </span>
-                <span>•</span>
-                <span>Real-time rendering</span>
+                <motion.span
+                  className="inline-block"
+                  animate={{
+                    opacity: [0.2, 1, 0.2],
+                    scale: [0.8, 1.3, 0.8],
+                  }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  •
+                </motion.span>
+
+
+                <span>
+                  Real-time rendering
+                </span>
               </div>
+
               <span className="text-xs px-2 py-1 bg-[#2a2d2e] text-[#cccccc] rounded">
-                {mobileView ? 'MOBILE VIEW' : 'DESKTOP VIEW'}
+                {mobileView ? "MOBILE VIEW" : "DESKTOP VIEW"}
               </span>
             </div>
           </div>
+
         </div>
       </div>
     </div>

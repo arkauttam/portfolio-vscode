@@ -1,6 +1,7 @@
 import { educationData } from "@/data/data";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { User, MapPin, Mail, Calendar, Award, BookOpen } from "lucide-react";
+import { useEffect, useState } from "react";
 const content = `
 # Uttam Ghosh
 
@@ -64,7 +65,26 @@ const formatDate = (date) => {
 
 export function AboutTab() {
   const lines = content.trim().split("\n");
+  const roles = [
+    "Software Engineer",
+    "Frontend Developer",
+    "React & TypeScript Specialist",
+    "AI-Driven UI Engineer",
+    "Full-Stack MERN Developer",
+    "AI Software Engineer",
+    "Next.js Developer",
+    "React Developer",
+    "UI/UX Developer"
+  ];
+  const [index, setIndex] = useState(0);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % roles.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div className="min-h-full flex">
       {/* Line numbers */}
@@ -92,8 +112,23 @@ export function AboutTab() {
           </motion.div>
           <div className="flex-1">
             <h1 className="text-3xl font-bold text-foreground mb-2">Uttam Ghosh</h1>
-            <p className="text-lg text-syntax-type mb-3">Software Engineer</p>
-            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+            <div className="h-[28px] overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={roles[index]}
+                  initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
+                  transition={{
+                    duration: 0.6,
+                    ease: "easeInOut",
+                  }}
+                  className="text-lg text-syntax-type mb-3"
+                >
+                  {roles[index]}
+                </motion.p>
+              </AnimatePresence>
+            </div>            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1">
                 <MapPin size={14} />
                 Kolkata, IND
