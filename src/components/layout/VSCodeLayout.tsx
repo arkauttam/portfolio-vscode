@@ -7,8 +7,11 @@ import { StatusBar } from "./StatusBar";
 import { EditorContent } from "./EditorContent";
 import { CommandPalette } from "./CommandPalette";
 import { TitleBar } from "./TitleBar";
+import { Project, projects } from "@/data/data";
 
 export type TabId = "welcome" | "about" | "projects" | "experience" | "contact";
+
+
 
 export interface Tab {
   id: TabId;
@@ -25,11 +28,13 @@ const tabs: Tab[] = [
   { id: "contact", label: "Contact", icon: "tsx", filename: "contact.tsx" },
 ];
 
+
 export function VSCodeLayout() {
   const [activeTab, setActiveTab] = useState<TabId>("welcome");
   const [openTabs, setOpenTabs] = useState<TabId[]>(["welcome"]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project>(projects[0]);
 
   const handleFileClick = (tabId: TabId) => {
     if (!openTabs.includes(tabId)) {
@@ -102,7 +107,11 @@ export function VSCodeLayout() {
                   tabs={tabs}
                   activeTab={activeTab}
                   onFileClick={handleFileClick}
+                  projects={projects}
+                  selectedProject={selectedProject}
+                  setSelectedProject={setSelectedProject}
                 />
+
               </motion.div>
             )}
           </AnimatePresence>
@@ -119,7 +128,7 @@ export function VSCodeLayout() {
             />
 
             {/* Editor Content */}
-            <EditorContent activeTab={activeTab} onFileClick={handleFileClick} />
+            <EditorContent activeTab={activeTab} onFileClick={handleFileClick} selectedProject={selectedProject} />
           </div>
         </div>
 

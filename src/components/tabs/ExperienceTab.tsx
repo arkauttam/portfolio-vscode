@@ -1,68 +1,7 @@
+import { experiences } from "@/data/data";
 import { motion } from "framer-motion";
 import { Building2, Calendar, MapPin, ChevronRight } from "lucide-react";
 
-interface Experience {
-  company: string;
-  role: string;
-  period: string;
-  location: string;
-  description: string;
-  achievements: string[];
-  tech: string[];
-}
-
-const experiences: Experience[] = [
-  {
-    company: "Online Savaari",
-    role: "Frontend Developer",
-    period: "January 2024 - Present",
-    location: "Kolkata, India",
-    description:
-      "Built an end-to-end flight booking platform integrating 5+ airline APIs, handling 100+ daily searches. Implemented Razorpay payments and optimized UI flows, reducing booking drop-offs and improving overall performance.",
-    achievements: [
-      "Integrated 5+ airline APIs enabling 100+ daily flight searches",
-      "Designed and implemented scalable, reusable UI components using React and ShadCN UI",
-      "Improved booking completion rate by ~40% through UX and performance optimizations",
-      "Integrated secure Razorpay payment flow with error handling and edge-case coverage",
-      "Collaborated with backend teams to optimize API contracts and reduce redundant calls",
-      "Ensured mobile-first responsiveness across all critical booking screens",
-    ],
-    tech: [
-      "Next.js",
-      "React.js",
-      "Tailwind CSS",
-      "ShadCN UI",
-      "JavaScript",
-      "REST APIs",
-      "Performance Optimization",
-      "Reusable Components",
-    ],
-  },
-  {
-    company: "GroceryBays",
-    role: "Frontend Developer (Part-time)",
-    period: "May 2023 - December 2023",
-    location: "Kolkata, India",
-    description:
-      "Redesigned and optimized the grocery e-commerce UI with a strong focus on responsiveness, accessibility, and SEO, leading to improved engagement and lower bounce rates.",
-    achievements: [
-      "Redesigned website layout to be fully responsive across mobile, tablet, and desktop",
-      "Reduced mobile bounce rate by ~25% through layout and performance improvements",
-      "Optimized images and assets to improve page load times",
-      "Improved on-page SEO structure and semantic HTML usage",
-      "Worked closely with product stakeholders to iterate on UI/UX feedback",
-    ],
-    tech: [
-      "JavaScript",
-      "HTML",
-      "CSS",
-      "Responsive Design",
-      "UI Components",
-      "SEO Optimization",
-      "Performance Improvement",
-    ],
-  },
-];
 
 export function ExperienceTab() {
   return (

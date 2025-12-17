@@ -1,237 +1,329 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Folder, FolderOpen, FileCode, ExternalLink, Github, Star, GitFork } from "lucide-react";
+import {
+  Folder,
+  FolderOpen,
+  FileCode,
+  ExternalLink,
+  Github,
+  ChevronRight,
+  Maximize2,
+  Minimize2,
+  RefreshCw
+} from "lucide-react";
+import { Project } from "@/data/data";
 
-interface Project {
-  id: string;
-  name: string;
-  description: string;
-  tech: string[];
-  problem: string;
-  solution: string;
-  impact: string;
-  github?: string;
-  live?: string;
-  stars?: number;
-  forks?: number;
+interface ProjectsTabProps {
+  selectedProject: Project | null;
 }
 
-const projects: Project[] = [
-  {
-    id: "llm-orchestrator",
-    name: "LLM Orchestrator",
-    description: "Production-grade LLM orchestration framework",
-    tech: ["Python", "FastAPI", "Redis", "Kubernetes", "OpenAI"],
-    problem: "Managing multiple LLM providers with consistent interfaces, handling rate limits, fallbacks, and cost optimization at scale.",
-    solution: "Built a unified orchestration layer with intelligent routing, automatic failover, semantic caching, and cost-aware load balancing.",
-    impact: "Reduced LLM API costs by 40% and improved p99 latency from 2s to 200ms for 10M+ daily requests.",
-    github: "https://github.com",
-    stars: 2400,
-    forks: 340,
-  },
-  {
-    id: "neural-search",
-    name: "Neural Search Engine",
-    description: "Enterprise semantic search platform",
-    tech: ["PyTorch", "FAISS", "Elasticsearch", "Go", "React"],
-    problem: "Traditional keyword search failing to surface relevant documents across 50M+ enterprise documents.",
-    solution: "Implemented hybrid search combining dense retrieval (custom embeddings) with BM25, using learned re-ranking for optimal results.",
-    impact: "Increased search relevance by 65% and reduced time-to-find from 5min to 10s for 10K daily users.",
-    github: "https://github.com",
-    live: "https://example.com",
-    stars: 1800,
-    forks: 220,
-  },
-  {
-    id: "ml-platform",
-    name: "ML Platform",
-    description: "End-to-end MLOps infrastructure",
-    tech: ["Kubernetes", "Kubeflow", "MLflow", "Terraform", "Python"],
-    problem: "Data scientists spending 60% of time on infrastructure instead of modeling.",
-    solution: "Built self-service ML platform with one-click model training, automated hyperparameter tuning, and continuous deployment pipelines.",
-    impact: "Reduced model deployment time from weeks to hours, enabling 5x more experiments per quarter.",
-    github: "https://github.com",
-    stars: 3200,
-    forks: 450,
-  },
-  {
-    id: "realtime-fraud",
-    name: "Real-time Fraud Detection",
-    description: "Sub-millisecond fraud scoring system",
-    tech: ["Flink", "Kafka", "XGBoost", "Feature Store", "Redis"],
-    problem: "Existing batch fraud detection missing fast-moving fraud patterns, causing $2M monthly losses.",
-    solution: "Designed streaming ML pipeline with real-time feature engineering, online model serving, and automatic model updates.",
-    impact: "Detected 40% more fraud while maintaining <5ms latency for 100K TPS.",
-    github: "https://github.com",
-    stars: 890,
-    forks: 120,
-  },
-];
 
-export function ProjectsTab() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [expandedFolders, setExpandedFolders] = useState<string[]>(["projects"]);
+export function ProjectsTab({ selectedProject }: ProjectsTabProps) {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [iframeLoading, setIframeLoading] = useState(true);
+  const [mobileView, setMobileView] = useState(false);
 
-  const toggleFolder = (folder: string) => {
-    setExpandedFolders((prev) =>
-      prev.includes(folder) ? prev.filter((f) => f !== folder) : [...prev, folder]
-    );
+  useEffect(() => {
+    if (selectedProject) {
+      setIframeLoading(true);
+    }
+  }, [selectedProject]);
+
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    return () =>
+      document.removeEventListener("fullscreenchange", onFullscreenChange);
+  }, []);
+
+  const refreshIframe = () => {
+    const iframe = document.getElementById(
+      "preview-iframe"
+    ) as HTMLIFrameElement | null;
+
+    if (iframe) {
+      setIframeLoading(true);
+      iframe.src = iframe.src;
+    }
   };
 
-  return (
-    <div className="min-h-full flex flex-col md:flex-row">
-      {/* File Tree */}
-      <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-border bg-sidebar p-4">
-        <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-          Projects Explorer
+  const toggleFullscreen = () => {
+    const container = document.getElementById("preview-container");
+    if (!container) return;
+
+    if (!document.fullscreenElement) {
+      container.requestFullscreen().catch(() => { });
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
+  if (!selectedProject) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="h-full flex items-center justify-center text-muted-foreground"
+      >
+        <div className="text-center">
+          <Folder size={48} className="mx-auto mb-4 opacity-50" />
+          <p>Select a project from the explorer to view details</p>
         </div>
-        
-        <button
-          onClick={() => toggleFolder("projects")}
-          className="w-full flex items-center gap-2 py-1 text-sm text-sidebar-foreground hover:text-foreground transition-colors"
-        >
-          {expandedFolders.includes("projects") ? (
-            <FolderOpen size={16} className="text-syntax-function" />
-          ) : (
-            <Folder size={16} className="text-syntax-function" />
-          )}
-          <span>projects/</span>
-        </button>
+      </motion.div>
+    );
+  }
 
-        <AnimatePresence>
-          {expandedFolders.includes("projects") && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="ml-4 mt-1 space-y-1 overflow-hidden"
-            >
-              {projects.map((project, index) => (
-                <motion.button
-                  key={project.id}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  onClick={() => setSelectedProject(project)}
-                  className={`w-full flex items-center gap-2 py-1 px-2 text-sm rounded transition-colors ${
-                    selectedProject?.id === project.id
-                      ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                      : "text-sidebar-foreground hover:bg-sidebar-accent/50"
-                  }`}
-                >
-                  <FileCode size={14} className="text-syntax-variable" />
-                  <span className="truncate">{project.id}.tsx</span>
-                </motion.button>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Project Details */}
-      <div className="flex-1 p-6 overflow-y-auto">
-        <AnimatePresence mode="wait">
-          {selectedProject ? (
+  return (
+    <div className="min-h-full flex flex-col lg:flex-row">
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col lg:flex-row">
+        {/* Project Details */}
+        <div className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto">
+          <AnimatePresence mode="wait">
             <motion.div
               key={selectedProject.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="max-w-3xl"
+              className="max-w-4xl"
             >
               {/* Header */}
-              <div className="flex items-start justify-between mb-6">
-                <div>
-                  <h1 className="text-2xl font-bold text-foreground mb-2">
-                    {selectedProject.name}
-                  </h1>
-                  <p className="text-muted-foreground">{selectedProject.description}</p>
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="p-2 bg-[#0e639c] rounded-lg">
+                      <FileCode className="text-white" size={24} />
+                    </div>
+                    <div>
+                      <h1 className="text-2xl md:text-3xl font-bold text-[#cccccc]">{selectedProject.name}</h1>
+                      <p className="text-[#858585] mt-2">{selectedProject.description}</p>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap gap-3 mt-6">
+                    {selectedProject.github && (
+                      <motion.a
+                        href={selectedProject.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#252526] border border-[#333333] text-[#cccccc] rounded-lg hover:bg-[#2a2d2e] transition-colors"
+                      >
+                        <Github size={18} />
+                        <span>View Code</span>
+                      </motion.a>
+                    )}
+                    {selectedProject.live && (
+                      <motion.a
+                        href={selectedProject.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#0e639c] text-white rounded-lg hover:bg-[#1177bb] transition-colors"
+                      >
+                        <ExternalLink size={18} />
+                        <span>Open Live</span>
+                      </motion.a>
+                    )}
+                  </div>
                 </div>
+              </div>
+
+              {/* VS Code Themed Project Details Cards */}
+              <div className="space-y-6 mb-8">
+                {/* Problem Card */}
+                <div className="bg-[#252526] border border-[#333333] rounded-lg overflow-hidden">
+                  <div className="flex items-center justify-between px-4 py-3 bg-[#1e1e1e] border-b border-[#333333]">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-[#ff6b6b]"></div>
+                      <span className="text-sm font-semibold text-[#cccccc] uppercase tracking-wider">Problem Statement</span>
+                    </div>
+                    <span className="text-xs text-[#858585]">problem.ts</span>
+                  </div>
+                  <div className="p-6 font-mono">
+                    <div className="text-[#6a9955]">// Challenge faced by users</div>
+                    <div className="mt-4 text-[#cccccc] leading-relaxed">{selectedProject.problem}</div>
+                  </div>
+                </div>
+
+                {/* Solution Card */}
+                <div className="bg-[#252526] border border-[#333333] rounded-lg overflow-hidden">
+                  <div className="flex items-center justify-between px-4 py-3 bg-[#1e1e1e] border-b border-[#333333]">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-[#4ec9b0]"></div>
+                      <span className="text-sm font-semibold text-[#cccccc] uppercase tracking-wider">Solution Approach</span>
+                    </div>
+                    <span className="text-xs text-[#858585]">solution.ts</span>
+                  </div>
+                  <div className="p-6 font-mono">
+                    <div className="text-[#6a9955]">// Technical implementation</div>
+                    <div className="mt-4 text-[#cccccc] leading-relaxed">{selectedProject.solution}</div>
+                    <div className="mt-6 pt-4 border-t border-[#333333]">
+                      <div className="text-[#6a9955]">// Tech Stack Used</div>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {selectedProject.tech.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-1 bg-[#0e639c]/20 border border-[#0e639c]/30 text-[#4ec9b0] text-xs rounded"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Impact Card */}
+                <div className="bg-[#252526] border border-[#333333] rounded-lg overflow-hidden">
+                  <div className="flex items-center justify-between px-4 py-3 bg-[#1e1e1e] border-b border-[#333333]">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-[#3794ff]"></div>
+                      <span className="text-sm font-semibold text-[#cccccc] uppercase tracking-wider">Impact & Results</span>
+                    </div>
+                    <span className="text-xs text-[#858585]">impact.ts</span>
+                  </div>
+                  <div className="p-6 font-mono">
+                    <div className="text-[#6a9955]">// Measurable outcomes</div>
+                    <div className="mt-4 text-[#4ec9b0] leading-relaxed font-medium">{selectedProject.impact}</div>
+                    <div className="mt-6 pt-4 border-t border-[#333333]">
+                      <div className="text-[#6a9955]">// Key Metrics</div>
+                      <div className="mt-2 text-[#dcdcaa] text-sm">
+                        ✓ Performance improvements quantified
+                        <br />
+                        ✓ User engagement metrics tracked
+                        <br />
+                        ✓ Business impact measured
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Live Preview Panel */}
+        <div className="w-full lg:w-1/2 xl:w-2/5 border-t lg:border-t-0 lg:border-l border-[#333333] bg-[#1e1e1e]">
+          <div className="p-4 border-b border-[#333333] bg-[#252526]">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2">
-                  {selectedProject.github && (
-                    <motion.a
-                      href={selectedProject.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="p-2 bg-card border border-border rounded-lg hover:bg-muted transition-colors"
-                    >
-                      <Github size={20} />
-                    </motion.a>
-                  )}
-                  {selectedProject.live && (
-                    <motion.a
-                      href={selectedProject.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="p-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
-                    >
-                      <ExternalLink size={20} />
-                    </motion.a>
-                  )}
+                  <div className="w-3 h-3 bg-[#ff5f56] rounded-full"></div>
+                  <div className="w-3 h-3 bg-[#ffbd2e] rounded-full"></div>
+                  <div className="w-3 h-3 bg-[#27ca3f] rounded-full"></div>
                 </div>
+                <h3 className="font-semibold text-[#cccccc]">LIVE PREVIEW</h3>
               </div>
 
-              {/* Stats */}
-              <div className="flex items-center gap-4 mb-6">
-                {selectedProject.stars && (
-                  <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                    <Star size={14} className="text-syntax-function" />
-                    <span>{selectedProject.stars.toLocaleString()}</span>
-                  </div>
-                )}
-                {selectedProject.forks && (
-                  <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                    <GitFork size={14} />
-                    <span>{selectedProject.forks.toLocaleString()}</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Tech Stack */}
-              <div className="flex flex-wrap gap-2 mb-8">
-                {selectedProject.tech.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2 py-1 bg-muted text-sm text-foreground rounded"
+              <div className="flex items-center gap-2">
+                {/* View Toggle */}
+                <div className="flex items-center bg-[#2a2d2e] rounded-lg p-1">
+                  <button
+                    onClick={() => setMobileView(false)}
+                    className={`px-3 py-1 rounded text-sm font-medium transition-colors ${!mobileView ? 'bg-[#0e639c] text-white' : 'text-[#858585]'}`}
                   >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+                    Desktop
+                  </button>
+                  <button
+                    onClick={() => setMobileView(true)}
+                    className={`px-3 py-1 rounded text-sm font-medium transition-colors ${mobileView ? 'bg-[#0e639c] text-white' : 'text-[#858585]'}`}
+                  >
+                    Mobile
+                  </button>
+                </div>
 
-              {/* Code-style details */}
-              <div className="font-mono text-sm space-y-6 bg-card p-6 rounded-lg border border-border">
-                <div>
-                  <span className="text-syntax-comment">// Problem Statement</span>
-                  <p className="text-foreground mt-2">{selectedProject.problem}</p>
-                </div>
-                <div>
-                  <span className="text-syntax-comment">// Solution</span>
-                  <p className="text-foreground mt-2">{selectedProject.solution}</p>
-                </div>
-                <div>
-                  <span className="text-syntax-comment">// Impact</span>
-                  <p className="text-syntax-type mt-2 font-semibold">{selectedProject.impact}</p>
+                {/* Preview Controls */}
+                <button
+                  onClick={refreshIframe}
+                  className="p-2 hover:bg-[#2a2d2e] rounded-lg transition-colors"
+                  title="Refresh preview"
+                >
+                  <RefreshCw size={18} className="text-[#cccccc]" />
+                </button>
+                <button
+                  onClick={toggleFullscreen}
+                  className="p-2 hover:bg-[#2a2d2e] rounded-lg transition-colors"
+                  title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+                >
+                  {isFullscreen ?
+                    <Minimize2 size={18} className="text-[#cccccc]" /> :
+                    <Maximize2 size={18} className="text-[#cccccc]" />
+                  }
+                </button>
+              </div>
+            </div>
+
+            {/* URL Bar */}
+            <div className="mt-4 flex items-center gap-2">
+              <div className="flex-1 bg-[#2a2d2e] rounded-lg px-4 py-2 text-sm font-mono truncate text-[#cccccc]">
+                {selectedProject.live || "https://example.com"}
+              </div>
+              <a
+                href={selectedProject.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-[#0e639c] text-white rounded-lg hover:bg-[#1177bb] transition-colors"
+                title="Open in new tab"
+              >
+                <ExternalLink size={18} />
+              </a>
+            </div>
+          </div>
+
+          {/* Iframe Preview Container */}
+          <div
+            id="preview-container"
+            className="relative overflow-hidden bg-[#000000]"
+            style={{ height: "calc(100vh - 200px)" }}
+          >
+            {iframeLoading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-[#1e1e1e] z-10">
+                <div className="text-center">
+                  <div className="w-16 h-16 border-4 border-[#0e639c]/20 border-t-[#0e639c] rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="text-[#858585]">Loading preview...</p>
                 </div>
               </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="h-full flex items-center justify-center text-muted-foreground"
-            >
-              <div className="text-center">
-                <Folder size={48} className="mx-auto mb-4 opacity-50" />
-                <p>Select a project from the explorer to view details</p>
+            )}
+
+            <iframe
+              id="preview-iframe"
+              src={selectedProject.live}
+              className={`w-full h-full transition-all duration-300 ${mobileView ? 'max-w-md mx-auto' : ''}`}
+              style={{
+                transform: mobileView ? 'scale(0.9)' : 'scale(1)',
+                transformOrigin: 'top center'
+              }}
+              onLoad={() => setIframeLoading(false)}
+              onError={() => setIframeLoading(false)}
+              title="Live project preview"
+              sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+              loading="lazy"
+            />
+          </div>
+
+          {/* Preview Info */}
+          <div className="p-4 border-t border-[#333333] bg-[#252526]">
+            <div className="flex items-center justify-between text-sm text-[#858585]">
+              <div className="flex items-center gap-4">
+                <span className="flex items-center gap-1">
+                  <div className="w-2 h-2 bg-[#27ca3f] rounded-full"></div>
+                  Live Preview
+                </span>
+                <span>•</span>
+                <span>Real-time rendering</span>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <span className="text-xs px-2 py-1 bg-[#2a2d2e] text-[#cccccc] rounded">
+                {mobileView ? 'MOBILE VIEW' : 'DESKTOP VIEW'}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

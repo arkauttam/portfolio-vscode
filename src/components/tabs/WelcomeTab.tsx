@@ -7,7 +7,7 @@ const codeLines = [
   { lineNum: 1, content: "", type: "empty" },
   { lineNum: 2, content: "/**", type: "comment" },
   { lineNum: 3, content: " * @name Uttam Ghosh", type: "comment" },
-  { lineNum: 4, content: " * @role Senior Software Engineer", type: "comment" },
+  { lineNum: 4, content: " * @role AI Software Engineer", type: "comment" },
   { lineNum: 5, content: " * @location kolkata, IND", type: "comment" },
   { lineNum: 6, content: " * @experience 2+ years", type: "comment" },
   { lineNum: 7, content: " */", type: "comment" },

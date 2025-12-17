@@ -1,6 +1,6 @@
+import { educationData } from "@/data/data";
 import { motion } from "framer-motion";
-import { User, MapPin, Mail, Calendar, Award, BookOpen, Layers2 } from "lucide-react";
-import { GraduationCap, School, Code2, Layers, Globe } from "lucide-react";
+import { User, MapPin, Mail, Calendar, Award, BookOpen } from "lucide-react";
 const content = `
 # Uttam Ghosh
 
@@ -48,105 +48,7 @@ I ask: What problem are we solving? Who benefits? How do we measure success?
 - TensorFlow Developer Certificate
 `;
 
-const educationData = [
-  {
-    id: 1,
-    title: "Petbindhi D.K.M High School",
-    subtitle: "12th Grade - WBCHSE",
-    startDate: "01/2018",
-    endDate: "03/2020",
-    skills: [
-      "Bengali",
-      "English",
-      "Nutrition",
-      "Physical education",
-      "Basic Computer Skills",
-      "Logical Thinking",
-      "Problem Solving",
-    ],
-    icon: School,
-    link: "https://school.banglarshiksha.gov.in/ws/website/index/19230906602",
-    gradient: "from-red-700 to-red-900",
-  },
-  {
-    id: 2,
-    startDate: "05/2020",
-    endDate: "08/2023",
-    skills: [
-      "Critical Thinking",
-      "Communication",
-      "Problem Solving",
-      "Research",
-    ],
-    title: "Jhargram Raj College",
-    subtitle: "Bachelor of Arts (B.A.)",
-    icon: GraduationCap,
-    link: "https://jrc.ac.in/",
-    gradient: "from-red-500 to-red-700",
-  },
-  {
-    id: 3,
-    startDate: "02/2022",
-    endDate: "09/2022",
-    title: "Code with Random",
-    subtitle: "Web Development Basics",
-    icon: Globe,
-    link: "https://codewithrandom.com/",
-    gradient: "from-yellow-500 to-yellow-700",
 
-  },
-  {
-    id: 4,
-    startDate: "12/2022",
-    endDate: "03/2023",
-    skills: [
-      "React.js",
-      "JavaScript",
-      "UI Development",
-    ],
-    title: "Masai School",
-    subtitle: "React Development",
-    icon: Layers2,
-    link: "https://masaischool.com/",
-    gradient: "from-green-500 to-green-700",
-  },
-  {
-    id: 5,
-    startDate: "06/2023",
-    endDate: "11/2023",
-    skills: [
-      "Next.js",
-      "React.js",
-      "Server-Side Rendering",
-      "Static Site Generation",
-    ],
-    title: "Get SDE Ready",
-    subtitle: "Next.js Projects",
-    icon: Layers,
-    link: "https://getsderedy.com/",
-    gradient: "from-purple-500 to-purple-700",
-  },
-  {
-    id: 6,
-    startDate: "02/2024",
-    endDate: "07/2024",
-    skills: [
-      "MongoDB",
-      "Express.js",
-      "React.js",
-      "Node.js",
-      "Full Stack Development",
-    ],
-    title: "Bengali Coding Academy",
-    subtitle: "MERN Stack",
-    icon: Code2,
-    link: "https://bengalicodingacademy.com/",
-    gradient: "from-blue-500 to-blue-700",
-  },
-
-
-
-];
 const formatDate = (date) => {
   if (!date) return "";
   if (/^\d{4}$/.test(date)) return date;

@@ -5,18 +5,20 @@ import { AboutTab } from "../tabs/AboutTab";
 import { ProjectsTab } from "../tabs/ProjectsTab";
 import { ExperienceTab } from "../tabs/ExperienceTab";
 import { ContactTab } from "../tabs/ContactTab";
+import { Project } from "@/data/data";
+
 
 interface EditorContentProps {
   activeTab: TabId;
   onFileClick: (tabId: TabId) => void;
+  selectedProject: Project | null;
 }
 
-// Optional prop for tabs that need onFileClick
 interface TabComponentProps {
   onFileClick?: (tabId: TabId) => void;
+  selectedProject?: Project | null;
 }
 
-// Map of tab components
 const tabComponents: Record<TabId, React.ComponentType<TabComponentProps>> = {
   welcome: WelcomeTab,
   about: AboutTab,
@@ -25,7 +27,11 @@ const tabComponents: Record<TabId, React.ComponentType<TabComponentProps>> = {
   contact: ContactTab,
 };
 
-export function EditorContent({ activeTab, onFileClick }: EditorContentProps) {
+export function EditorContent({
+  activeTab,
+  onFileClick,
+  selectedProject,
+}: EditorContentProps) {
   const ActiveComponent = tabComponents[activeTab];
 
   return (
@@ -36,12 +42,12 @@ export function EditorContent({ activeTab, onFileClick }: EditorContentProps) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.2 }}
           className="h-full overflow-y-auto"
         >
-          {/* Only WelcomeTab uses onFileClick */}
           {activeTab === "welcome" ? (
             <ActiveComponent onFileClick={onFileClick} />
+          ) : activeTab === "projects" ? (
+            <ActiveComponent selectedProject={selectedProject} />
           ) : (
             <ActiveComponent />
           )}
