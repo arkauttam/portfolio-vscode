@@ -25,22 +25,27 @@ export const projects: Project[] = [
     id: "online-savaari",
     name: "Online Ticket Booking System",
     description:
-      "End-to-end flight booking platform integrating multiple airline APIs with secure payments and optimized UI performance.",
+      "Developed and scaled a comprehensive travel-tech platform offering Flights, Hotels, Visa services, Travel Insurance, eSIM, Airport Lounge access, Holidays, and Activities. Built multiple end-to-end user journeys including search, comparison, booking, and payment flows while integrating 5+ airline APIs and other third-party services, supporting 1000+ daily searches across modules.",
     tech: [
       "Next.js",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "Razorpay API",
-      "REST API",
+      "React.js",
+      "Tailwind CSS",
+      "Google OCR API",
+      "Airline APIs",
       "ShadCN UI",
+      "JavaScript",
+      "REST APIs",
+      "Razorpay",
+      "Performance Optimization",
+      "Reusable Components",
+      "Responsive Design",
     ],
     problem:
-      "Complex airline APIs and slow UI interactions caused poor booking experience and drop-offs during checkout.",
+      "Complex airline APIs and slow UI interactions caused a poor booking experience and high drop-offs during checkout.",
     solution:
-      "Built a modular frontend with optimized search rendering, normalized API responses, and a smooth Razorpay payment flow with real-time UI feedback.",
+      "Built a modular, scalable frontend with optimized search rendering, normalized API responses, and a smooth Razorpay payment flow with real-time UI feedback.",
     impact:
-      "Improved booking completion rate by 40% and handled 100+ daily flight searches with a fast, reliable user experience.",
+      "Improved booking completion rate by ~40% and reliably handled 1000+ daily searches with a fast, stable user experience.",
     github: "https://github.com",
     live: "https://onlinesavaari.com",
     img: "/savaari.webp",
@@ -49,20 +54,20 @@ export const projects: Project[] = [
     id: "ecommerce-platform",
     name: "E-commerce Platform",
     description:
-      "Modern e-commerce application with fast filtering, responsive design, and optimized frontend performance.",
+      "Full-featured e-commerce web application supporting complete shopping workflows including product listing, advanced filtering, product detail pages, cart management, and checkout experience. Built with a focus on performance, scalability, and responsive design to deliver a seamless shopping experience across mobile and desktop devices.",
     tech: [
       "Next.js",
       "TypeScript",
-      "TailwindCSS",
+      "Tailwind CSS",
       "API Integration",
       "ShadCN UI",
     ],
     problem:
-      "Slow filtering and poor mobile responsiveness made product discovery difficult for users.",
+      "Product discovery was slow and inconsistent due to inefficient filtering logic and unoptimized API calls, especially on mobile devices.",
     solution:
-      "Implemented client-side filtering, optimized API calls, and reusable UI components with a mobile-first approach.",
+      "Implemented optimized client-side and server-side data handling, fast filtering and sorting mechanisms, reusable UI components, and a mobile-first checkout flow.",
     impact:
-      "Improved page performance by 35% and increased user engagement across all screen sizes.",
+      "Improved page load and filtering performance by ~35%, increased session duration, and enhanced overall user engagement across all screen sizes.",
     github: "https://github.com",
     live: "https://next-e-commerce.onrender.com",
     img: "/ecommerce.svg",
@@ -71,13 +76,14 @@ export const projects: Project[] = [
     id: "grocery-bays",
     name: "Grocery Bays E-commerce",
     description:
-      "Responsive grocery delivery website redesign focused on mobile users.",
+      "End-to-end grocery e-commerce platform enabling users to browse products, search categories, manage carts, and place orders with a strong emphasis on mobile usability. Focused on improving conversion, performance, and accessibility for daily-use shoppers.",
     tech: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     problem:
-      "High bounce rate caused by outdated layout and poor mobile usability.",
+      "The existing platform suffered from high bounce rates, poor mobile navigation, and slow page loads, negatively impacting conversions.",
     solution:
-      "Redesigned UI with a clean layout, better spacing, and improved mobile responsiveness.",
-    impact: "Reduced bounce rate by 25% and improved mobile user retention.",
+      "Redesigned the complete user interface with a modern layout, optimized product grids, improved navigation flow, responsive breakpoints, and optimized images and assets.",
+    impact:
+      "Reduced bounce rate by ~25%, improved mobile retention, and increased overall engagement and usability for repeat customers.",
     github: "https://github.com",
     live: "https://www.grocerybays.com/",
     img: "/grocery.png",
@@ -86,7 +92,7 @@ export const projects: Project[] = [
     id: "pdf-analyzer",
     name: "AI-Powered PDF Analyzer",
     description:
-      "AI tool that analyzes PDFs and generates instant summaries using LangChain and Gemini.",
+      "AI-powered document analysis tool that allows users to upload PDFs such as resumes, reports, and research papers and instantly receive structured insights. Uses LangChain with the Google Gemini API to generate summaries, extract key points, suggest actions, and perform advanced resume analysis.",
     tech: [
       "LangChain",
       "Google Gemini API",
@@ -94,16 +100,18 @@ export const projects: Project[] = [
       "Next.js",
       "ShadCN UI",
     ],
-    problem: "Manual PDF review was time-consuming and inefficient.",
+    problem:
+      "Manually reviewing long documents and resumes was time-consuming, inconsistent, and inefficient for quick decision-making.",
     solution:
-      "Integrated LangChain with Gemini API to generate fast, accurate summaries and insights.",
+      "Built an AI-driven pipeline using LangChain and Gemini to parse PDFs, generate concise summaries, extract key insights, and provide actionable recommendations through a clean, user-friendly interface.",
     impact:
-      "Reduced document review time by 30%, processing 50+ PDFs daily in under 5 seconds.",
+      "Reduced document review time by ~30%, enabling analysis of 50+ PDFs daily in under 5 seconds. Includes a Resume Special Mode with AI-generated resume scores, improvement suggestions, job domain fit analysis, and one-click export of insights as PDF or DOC.",
     github: "https://github.com",
     live: "https://ai-powered-pdf-analyzer.onrender.com",
     img: "/pdf.png",
   },
 ];
+
 export const educationData = [
   {
     id: 1,
@@ -213,24 +221,30 @@ export const experiences: Experience[] = [
     period: "January 2024 - Present",
     location: "Kolkata, India",
     description:
-      "Built an end-to-end flight booking platform integrating 5+ airline APIs, handling 100+ daily searches. Implemented Razorpay payments and optimized UI flows, reducing booking drop-offs and improving overall performance.",
+      "Developed and scaled a comprehensive travel-tech platform offering Flights, Hotels, Visa services, Travel Insurance, eSIM, Airport Lounge access, Holidays, and Activities. Built multiple end-to-end user journeys including search, comparison, booking, and payment flows while integrating 5+ airline APIs and other third-party services, supporting 1000+ daily searches across modules.",
     achievements: [
-      "Integrated 5+ airline APIs enabling 100+ daily flight searches",
-      "Designed and implemented scalable, reusable UI components using React and ShadCN UI",
-      "Improved booking completion rate by ~40% through UX and performance optimizations",
-      "Integrated secure Razorpay payment flow with error handling and edge-case coverage",
-      "Collaborated with backend teams to optimize API contracts and reduce redundant calls",
-      "Ensured mobile-first responsiveness across all critical booking screens",
+      "Built complete booking flows for Flights, Hotels, Visa, Insurance, eSIM, Lounge, Holidays, and Activities modules",
+      "Integrated 5+ airline APIs enabling 100+ daily flight searches with optimized search and filter experiences",
+      "Designed and implemented scalable, reusable UI components using React, Next.js, and ShadCN UI",
+      "Improved booking completion rate by ~40% through UX improvements and performance optimizations",
+      "Integrated secure Razorpay payment flow with robust error handling and edge-case coverage",
+      "Collaborated closely with backend teams to optimize API contracts and reduce redundant network calls",
+      "Implemented mobile-first, responsive designs across all major booking and checkout screens",
+      "Enhanced overall application performance using code-splitting, memoization, and efficient state management",
     ],
     tech: [
       "Next.js",
       "React.js",
       "Tailwind CSS",
+      "Google OCR API",
+      "Airline APIs",
       "ShadCN UI",
       "JavaScript",
       "REST APIs",
+      "Razorpay",
       "Performance Optimization",
       "Reusable Components",
+      "Responsive Design",
     ],
   },
   {
@@ -239,22 +253,24 @@ export const experiences: Experience[] = [
     period: "May 2023 - December 2023",
     location: "Kolkata, India",
     description:
-      "Redesigned and optimized the grocery e-commerce UI with a strong focus on responsiveness, accessibility, and SEO, leading to improved engagement and lower bounce rates.",
+      "Worked on a grocery e-commerce platform focused on improving usability, performance, and discoverability. Led UI redesign efforts to enhance customer experience across product listing, search, and checkout flows, resulting in higher engagement and improved mobile performance.",
     achievements: [
-      "Redesigned website layout to be fully responsive across mobile, tablet, and desktop",
-      "Reduced mobile bounce rate by ~25% through layout and performance improvements",
-      "Optimized images and assets to improve page load times",
-      "Improved on-page SEO structure and semantic HTML usage",
-      "Worked closely with product stakeholders to iterate on UI/UX feedback",
+      "Redesigned core pages including Home, Product Listing, Product Detail, and Cart for better usability",
+      "Made the entire website fully responsive across mobile, tablet, and desktop devices",
+      "Reduced mobile bounce rate by ~25% through layout restructuring and performance improvements",
+      "Optimized images, assets, and CSS to significantly improve page load times",
+      "Improved SEO through semantic HTML, better heading structure, and optimized metadata",
+      "Collaborated with product and business stakeholders to iterate on UI/UX based on real user feedback",
     ],
     tech: [
       "JavaScript",
       "HTML",
       "CSS",
       "Responsive Design",
-      "UI Components",
+      "UI/UX Improvements",
       "SEO Optimization",
-      "Performance Improvement",
+      "Performance Optimization",
     ],
   },
 ];
+

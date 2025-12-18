@@ -362,6 +362,7 @@ export function WelcomeTab({ onFileClick }: WelcomeTabProps) {
             "MERN Stack",
             "Next.js",
             "React.js",
+            "LangChain",
             "TypeScript",
             "Node.js",
             "Express.js",

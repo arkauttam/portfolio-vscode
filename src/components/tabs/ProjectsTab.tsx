@@ -113,10 +113,28 @@ export function ProjectsTab({ selectedProject }: ProjectsTabProps) {
                       <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#cccccc]">
                         {selectedProject.name}
                       </h1>
-                      <p className="text-sm  sm:text-base text-[#858585] mt-1 sm:mt-2 leading-relaxed line-clamp-2"  >
-                        {selectedProject.description}
-                      </p>
+
+                      <TooltipProvider delayDuration={200}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <p
+                              className="text-sm sm:text-base text-[#858585] mt-1 sm:mt-2 leading-relaxed line-clamp-2 cursor-help"
+                            >
+                              {selectedProject.description}
+                            </p>
+                          </TooltipTrigger>
+
+                          <TooltipContent
+                            side="top"
+                            align="start"
+                            className="max-w-sm text-sm leading-relaxed bg-[#1e1e1e] text-[#cccccc] border border-[#2a2a2a]"
+                          >
+                            {selectedProject.description}
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
+
                   </div>
 
 
