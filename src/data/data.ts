@@ -15,12 +15,50 @@ export interface Project {
   problem: string;
   solution: string;
   impact: string;
+  testcredentials?: {
+    email: string;
+    password: string;
+  };
   github: string;
   live: string;
   img: string;
 }
 
 export const projects: Project[] = [
+  {
+    id: "caseopedia",
+    name: "Caseopedia - Legal Case Management System",
+    description:
+      "Designed and developed a full-fledged Legal Case Management System tailored for law organization and independent advocates. The platform digitizes the complete law-firm workflow including client onboarding, case registration, court and hearing scheduling, document management, task tracking, and secure communication between lawyers and clients. Admin can manage multiple cases, assign tasks to lawyers, bulk upload data , track case status, and receive hearing reminders, while clients can securely view case progress and documents through a dedicated portal. The system streamlines daily legal operations, reduces manual data enty, and improves case visibility across the firm.",
+    tech: [
+      "React.js",
+      "Firebase",
+      "Django",
+      "SQL",
+      "AWS EC2",
+      "Tailwind CSS",
+      "ShadCN UI",
+      "JavaScript",
+      "REST APIs",
+      "Role-Based Access Control",
+      "Performance Optimization",
+      "Reusable Components",
+      "Responsive Design",
+    ],
+    problem:
+      "Most small and mid-size law organizations rely on spreadsheets, physical files, and WhatsApp/email communication to manage cases, leading to misplaced documents, missed hearings, poor task tracking, and lack of transparency between lawyers and clients.",
+    solution:
+      "Built a centralized, role-based legal management system with a modular frontend and scalable backend. Implemented secure authentication for lawyers, organizations, and clients, structured case and document workflows, real-time case status updates, hearing reminders, and intuitive dashboards for workload and case tracking. Optimized UI performance to handle large case and document datasets smoothly.",
+    impact:
+      "Reduced manual paperwork and administrative overhead by ~60%, improved case tracking and accountability across teams, and helped law firms manage hundreds of active cases with better organization, faster access to documents, and improved client trust through transparent case updates.",
+    testcredentials: {
+      email: "test@gmail.com",
+      password: "T@1234567890",
+    },
+    github: "https://github.com",
+    live: "https://caseopedia.onrender.com",
+    img: "/caseopedia.png",
+  },
   {
     id: "online-savaari",
     name: "Online Ticket Booking System",
@@ -51,6 +89,82 @@ export const projects: Project[] = [
     img: "/savaari.webp",
   },
   {
+    id: "medicheck",
+    name: "MediCheck - OCR-Based Prescription Management System",
+    description:
+      "Built an AI-powered healthcare web platform that allows users to securely sign up, select a pricing plan, and access a personalized dashboard to manage medical prescriptions. Users can upload handwritten doctor prescriptions, which are processed using an OCR pipeline to extract structured data such as medicine names, dosage, frequency, and duration. The system transforms unstructured handwritten prescriptions into readable, digital medical records, enabling users to store, review, and manage their prescription history in one place.",
+    tech: [
+      "React.js",
+      "Tailwind CSS",
+      "ShadCN UI",
+      "JavaScript",
+      "Redux",
+      "TypeScript",
+      "Aws",
+      "Framer Motion",
+      "OCR (Tesseract / AI Vision)",
+      "REST APIs",
+      "Responsive Design",
+      "Performance Optimization",
+    ],
+    problem:
+      "Handwritten medical prescriptions are often difficult to read, easy to lose, and hard to track over time. Patients struggle to understand medicine details, while digital health records are rarely available for offline or small-clinic prescriptions.",
+    solution:
+      "Developed a secure, step-based user flow starting with authentication and pricing access control, followed by a dashboard-driven experience. Implemented an OCR-based prescription scanning system that extracts and structures key medical data from handwritten prescriptions. Designed a clean UI to review, edit, and store extracted prescription details, ensuring accuracy and long-term accessibility.",
+    impact:
+      "Enabled users to digitize handwritten prescriptions in seconds, reduced prescription misinterpretation risks, and created a centralized, searchable medical record system that improves medication clarity and long-term health tracking.",
+    github: "https://github.com",
+    live: "http://51.21.252.2/",
+    img: "/medicheck.png",
+  },
+  {
+    id: "abalytics",
+    name: "ABAlytics – Intelligent ABA Data & Progress Tracking System",
+    description:
+      "Developed a smart ABA therapy platform focused on real-time behavioral data collection, AI-generated session notes, and learner health tracking. The system is optimized for doctors and therapists conducting in-home ABA sessions, allowing them to log observations live, capture skill and behavior metrics, and automatically generate professional session documentation. Interactive graphs and analytics help clinicians evaluate learner performance trends and therapy effectiveness.",
+    tech: [
+      "Java",
+      "Spring Boot",
+      "React.js",
+      "REST APIs",
+      "Admin Control",
+      "AI-Based Text Generation",
+      "Recharts",
+      "JWT Security",
+      "Modular UI Components",
+      "Performance Optimization",
+    ],
+    problem:
+      "Manual ABA documentation is time-consuming, error-prone, and often completed after sessions, reducing data accuracy and making long-term learner tracking difficult.",
+    solution:
+      "Created a unified platform that combines live session data entry with AI-driven note generation and automated progress analytics. Designed clinician-friendly dashboards to visualize learner development and behavioral outcomes.",
+    impact:
+      "Improved documentation efficiency, enabled real-time clinical insights, and helped practitioners manage multiple learners with accurate, data-driven ABA therapy records.",
+    testcredentials: {
+      email: "sutanu.adhikary.8131@gmail.com",
+      password: "Sonu@130",
+    },
+    github: "https://github.com",
+    live: "https://lucidabanotesui.azurewebsites.net",
+    img: "/abalytics.png",
+  }, 
+  {
+    id: "grocery-bays",
+    name: "Grocery Bays E-commerce",
+    description:
+      "End-to-end grocery e-commerce platform enabling users to browse products, search categories, manage carts, and place orders with a strong emphasis on mobile usability. Focused on improving conversion, performance, and accessibility for daily-use shoppers.",
+    tech: ["HTML", "CSS", "JavaScript", "Bootstrap"],
+    problem:
+      "The existing platform suffered from high bounce rates, poor mobile navigation, and slow page loads, negatively impacting conversions.",
+    solution:
+      "Redesigned the complete user interface with a modern layout, optimized product grids, improved navigation flow, responsive breakpoints, and optimized images and assets.",
+    impact:
+      "Reduced bounce rate by ~25%, improved mobile retention, and increased overall engagement and usability for repeat customers.",
+    github: "https://github.com",
+    live: "https://www.grocerybays.com/",
+    img: "/grocery.png",
+  },
+  {
     id: "ecommerce-platform",
     name: "E-commerce Platform",
     description:
@@ -71,22 +185,6 @@ export const projects: Project[] = [
     github: "https://github.com",
     live: "https://next-e-commerce.onrender.com",
     img: "/ecommerce.svg",
-  },
-  {
-    id: "grocery-bays",
-    name: "Grocery Bays E-commerce",
-    description:
-      "End-to-end grocery e-commerce platform enabling users to browse products, search categories, manage carts, and place orders with a strong emphasis on mobile usability. Focused on improving conversion, performance, and accessibility for daily-use shoppers.",
-    tech: ["HTML", "CSS", "JavaScript", "Bootstrap"],
-    problem:
-      "The existing platform suffered from high bounce rates, poor mobile navigation, and slow page loads, negatively impacting conversions.",
-    solution:
-      "Redesigned the complete user interface with a modern layout, optimized product grids, improved navigation flow, responsive breakpoints, and optimized images and assets.",
-    impact:
-      "Reduced bounce rate by ~25%, improved mobile retention, and increased overall engagement and usability for repeat customers.",
-    github: "https://github.com",
-    live: "https://www.grocerybays.com/",
-    img: "/grocery.png",
   },
   {
     id: "pdf-analyzer",
@@ -273,4 +371,3 @@ export const experiences: Experience[] = [
     ],
   },
 ];
-

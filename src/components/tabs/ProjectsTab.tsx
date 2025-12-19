@@ -189,6 +189,36 @@ export function ProjectsTab({ selectedProject }: ProjectsTabProps) {
 
               {/* VS Code Themed Project Details Cards */}
               <div className="space-y-6 mb-8">
+                {/* Test Credentials Card */}
+                {selectedProject.testcredentials && (
+                  <div className="bg-[#252526] border border-[#333333] rounded-lg overflow-hidden">
+                    <div className="flex items-center justify-between px-4 py-3 bg-[#1e1e1e] border-b border-[#333333]">
+                      <div className="flex items-center gap-2">
+                        <motion.div
+                          className="w-3 h-3 rounded-full bg-[#ffb86c]"
+                          animate={{
+                            scale: [1, 1.4, 1],
+                            opacity: [1, 0.6, 1],
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        />
+                        <span className="text-sm font-semibold text-[#cccccc] uppercase tracking-wider">Test Credentials</span>
+                      </div>
+                      <span className="text-xs text-[#858585]">credentials.txt</span>
+                    </div>
+                    <div className="p-6 font-mono">
+                      <div className="text-[#6a9955]">// Use these credentials to log in</div>
+                      <div className="mt-4 text-[#cccccc] leading-relaxed">
+                        <div><span className="text-[#569cd6]">Email:</span> <span className="text-[#dcdcaa]">{selectedProject.testcredentials.email}</span></div>
+                        <div><span className="text-[#569cd6]">Password:</span> <span className="text-[#dcdcaa]">{selectedProject.testcredentials.password}</span></div>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 {/* Problem Card */}
                 <div className="bg-[#252526] border border-[#333333] rounded-lg overflow-hidden">
                   <div className="flex items-center justify-between px-4 py-3 bg-[#1e1e1e] border-b border-[#333333]">
