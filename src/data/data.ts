@@ -147,7 +147,7 @@ export const projects: Project[] = [
     github: "https://github.com",
     live: "https://lucidabanotesui.azurewebsites.net",
     img: "/abalytics.png",
-  }, 
+  },
   {
     id: "grocery-bays",
     name: "Grocery Bays E-commerce",
@@ -211,7 +211,7 @@ export const projects: Project[] = [
 ];
 
 export const educationData = [
-   {
+  {
     id: 1,
     title: "Computer Operator & Programming Assistant - COPA",
     subtitle: "Government Industrial Trainning Institute Sankrail",
@@ -227,26 +227,6 @@ export const educationData = [
     link: "https://sankrailgovtiti.com/",
     gradient: "from-indigo-700 to-indigo-900",
   },
-  {
-    id: 2,
-    title: "12th Grade - WBCHSE",
-    subtitle: "Petbindhi D.K.M High School",
-    startDate: "2018",
-    endDate: "2020",
-    skills: [
-      "Bengali",
-      "English",
-      "Nutrition",
-      "Physical education",
-      "Basic Computer Skills",
-      "Logical Thinking",
-      "Problem Solving",
-    ],
-    icon: School,
-    link: "https://school.banglarshiksha.gov.in/ws/website/index/19230906602",
-    gradient: "from-red-700 to-red-900",
-  },
- 
   {
     id: 3,
     startDate: "2020",
