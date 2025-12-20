@@ -230,7 +230,7 @@ export function ContactTab() {
               { icon: Github, href: "https://github.com/arkauttam", label: "GitHub" },
               { icon: Linkedin, href: "https://www.linkedin.com/in/uttam-ghosh-7187a2258/", label: "LinkedIn" },
               { icon: SiWhatsapp, href: "https://wa.me/918967258388", label: "WhatsApp" },
-              { icon: Mail, href: "mailto:uttamghosh7215@gmail.com", label: "Email" },
+              { icon: Mail, href: "mailto:uttamghosh.work@gmail.com", label: "Email" },
             ].map((social) => (
               <motion.a
                 key={social.label}

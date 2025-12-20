@@ -32,10 +32,22 @@ I ask: What problem are we solving? Who benefits? How do we measure success?
 
 ---
 
+
+
+
+
 ## Education
 
 - **Petbindhi D.K.M High School** — 12th Grade - WBCHSE
-- **Jhargram Raj College** — Bachelor of Arts (B.A.)
+- **Budge Budge Institute of Technology (WBSCTVESD)** — DIPLOMA - Computer Science and Technology
+- **Government Industrial Trainning Institute Sankrail** — Computer Operator & Programming Assistant - COPA 
+
+
+
+
+---
+
+## Courses & Training
 - **Code with Random** — Web Development Basics
 - **Masai School** — React Development
 - **Get SDE Ready** — Next.js Projects
@@ -136,7 +148,7 @@ export function AboutTab() {
               </span>
               <span className="flex items-center gap-1">
                 <Mail size={14} />
-                uttamghosh7215@gmail.com
+                uttamghosh.work@gmail.com
               </span>
               <span className="flex items-center gap-1">
                 <Calendar size={14} />
@@ -227,18 +239,11 @@ export function AboutTab() {
                     >
                       <div className="flex items-center justify-between gap-2">
                         <h4 className="font-semibold text-foreground">
-                          {item.link ? (
-                            <a
-                              href={item.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="hover:underline"
+                            <p
+                              className="text-primary"
                             >
                               {item.title}
-                            </a>
-                          ) : (
-                            item.title
-                          )}
+                            </p>
                         </h4>
                         {item.startDate && item.endDate && (
                           <span className="text-xs rounded-full border border-border px-2 py-0.5 text-muted-foreground">
@@ -247,7 +252,18 @@ export function AboutTab() {
                         )}
 
                       </div>
-                      <p className="text-sm text-muted-foreground">{item.subtitle}</p>
+                      {item.link ? (
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline text-foreground text-sm"
+                        >
+                          {item.subtitle}
+                        </a>
+                      ) : (
+                        item.subtitle
+                      )}
                     </motion.div>
                   </motion.div>
                 );
