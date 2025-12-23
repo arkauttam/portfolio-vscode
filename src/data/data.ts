@@ -60,6 +60,34 @@ export const projects: Project[] = [
     img: "/caseopedia.png",
   },
   {
+    id: "sales-dashboard",
+    name: "Sales & E-commerce Analytics Dashboard",
+    description:
+      "A production-grade, frontend-only sales and e-commerce analytics dashboard designed to deliver clear, actionable business insights through interactive KPIs, advanced data visualizations, and structured reporting. The platform features state-based authentication, centralized global state management, and dynamic filtering to simulate real-world SaaS analytics workflows without requiring a backend.",
+    tech: [
+      "React.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "ShadCN UI",
+      "Zustand",
+      "Recharts",
+      "JavaScript",
+      "Responsive Design",
+      "Performance Optimization",
+      "Role-Based Access Control",
+      "Reusable Components",
+    ],
+    problem:
+      "Early-stage products and internal business teams often struggle to prototype analytics platforms quickly due to backend dependencies, infrastructure complexity, and extended development cycles.",
+    solution:
+      "Implemented a fully frontend-driven analytics architecture using Zustand for centralized state management and locally mocked datasets to replicate real sales and customer behavior. Interactive charts, KPIs, and tables dynamically respond to filters, closely mirroring enterprise analytics dashboards.",
+    impact:
+      "Showcases the ability to architect scalable, analytics-heavy user interfaces without backend services. The dashboard enables KPI monitoring, growth comparison, category-level revenue analysis, conversion tracking, and responsive admin layouts suitable for MVPs, demos, and stakeholder presentations.",
+    github: "https://github.com",
+    live: "https://salesflow-dashboard.onrender.com",
+    img: "/sales-dashboard.png",
+  },
+  {
     id: "online-savaari",
     name: "Online Ticket Booking System",
     description:
@@ -116,37 +144,6 @@ export const projects: Project[] = [
     github: "https://github.com",
     live: "http://51.21.252.2/",
     img: "/medicheck.png",
-  },
-  {
-    id: "abalytics",
-    name: "ABAlytics – Intelligent ABA Data & Progress Tracking System",
-    description:
-      "Developed a smart ABA therapy platform focused on real-time behavioral data collection, AI-generated session notes, and learner health tracking. The system is optimized for doctors and therapists conducting in-home ABA sessions, allowing them to log observations live, capture skill and behavior metrics, and automatically generate professional session documentation. Interactive graphs and analytics help clinicians evaluate learner performance trends and therapy effectiveness.",
-    tech: [
-      "Java",
-      "Spring Boot",
-      "React.js",
-      "REST APIs",
-      "Admin Control",
-      "AI-Based Text Generation",
-      "Recharts",
-      "JWT Security",
-      "Modular UI Components",
-      "Performance Optimization",
-    ],
-    problem:
-      "Manual ABA documentation is time-consuming, error-prone, and often completed after sessions, reducing data accuracy and making long-term learner tracking difficult.",
-    solution:
-      "Created a unified platform that combines live session data entry with AI-driven note generation and automated progress analytics. Designed clinician-friendly dashboards to visualize learner development and behavioral outcomes.",
-    impact:
-      "Improved documentation efficiency, enabled real-time clinical insights, and helped practitioners manage multiple learners with accurate, data-driven ABA therapy records.",
-    testcredentials: {
-      email: "sutanu.adhikary.8131@gmail.com",
-      password: "Sonu@130",
-    },
-    github: "https://github.com",
-    live: "https://lucidabanotesui.azurewebsites.net",
-    img: "/abalytics.png",
   },
   {
     id: "grocery-bays",
@@ -208,6 +205,37 @@ export const projects: Project[] = [
     live: "https://ai-powered-pdf-analyzer.onrender.com",
     img: "/pdf.png",
   },
+  // {
+  //   id: "abalytics",
+  //   name: "ABAlytics – Intelligent ABA Data & Progress Tracking System",
+  //   description:
+  //     "Developed a smart ABA therapy platform focused on real-time behavioral data collection, AI-generated session notes, and learner health tracking. The system is optimized for doctors and therapists conducting in-home ABA sessions, allowing them to log observations live, capture skill and behavior metrics, and automatically generate professional session documentation. Interactive graphs and analytics help clinicians evaluate learner performance trends and therapy effectiveness.",
+  //   tech: [
+  //     "Java",
+  //     "Spring Boot",
+  //     "React.js",
+  //     "REST APIs",
+  //     "Admin Control",
+  //     "AI-Based Text Generation",
+  //     "Recharts",
+  //     "JWT Security",
+  //     "Modular UI Components",
+  //     "Performance Optimization",
+  //   ],
+  //   problem:
+  //     "Manual ABA documentation is time-consuming, error-prone, and often completed after sessions, reducing data accuracy and making long-term learner tracking difficult.",
+  //   solution:
+  //     "Created a unified platform that combines live session data entry with AI-driven note generation and automated progress analytics. Designed clinician-friendly dashboards to visualize learner development and behavioral outcomes.",
+  //   impact:
+  //     "Improved documentation efficiency, enabled real-time clinical insights, and helped practitioners manage multiple learners with accurate, data-driven ABA therapy records.",
+  //   testcredentials: {
+  //     email: "sutanu.adhikary.8131@gmail.com",
+  //     password: "Sonu@130",
+  //   },
+  //   github: "https://github.com",
+  //   live: "https://lucidabanotesui.azurewebsites.net",
+  //   img: "/abalytics.png",
+  // },
 ];
 
 export const educationData = [
