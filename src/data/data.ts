@@ -88,6 +88,33 @@ export const projects: Project[] = [
     img: "/sales-dashboard.png",
   },
   {
+    id: "messageX-whatsapp",
+    name: "MessageX - WhatsApp-Inspired Frontend Messaging Platform",
+    description:
+      "A production-grade, frontend-only messaging application inspired by WhatsApp, designed to closely replicate real-world chat, status, and call experiences using modern React architecture. The platform simulates authentication, real-time messaging behavior, delivery states, and user presence entirely on the client side, making it ideal for MVPs, demos, and frontend system design showcases.",
+    tech: [
+      "React.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "ShadCN UI",
+      "Zustand",
+      "localStorage",
+      "JavaScript",
+      "Responsive Design",
+      "Performance Optimization",
+      "Reusable Components",
+    ],
+    problem:
+      "Building real-time chat applications typically requires complex backend infrastructure such as WebSockets, databases, and authentication services, which slows down prototyping and limits frontend-focused experimentation.",
+    solution:
+      "Implemented a fully frontend-driven messaging architecture using Zustand for centralized global state management and localStorage as a simulated persistence layer. Authentication, chats, message delivery states, online indicators, auto-replies, and UI navigation are all modeled on the client side to closely mirror WhatsApp-style workflows without backend dependencies.",
+    impact:
+      "Demonstrates the ability to architect scalable, state-heavy, real-time-like user interfaces using modern frontend tools. The application showcases chat lifecycle management, message status simulation, responsive mobile-first layouts, and multi-section navigation (Chats, Status, Calls, Settings), making it a strong portfolio project for frontend, product, and UI engineering roles.",
+    github: "https://github.com/",
+    live: "https://messagex-whatsapp.onrender.com",
+    img: "/messageX.png",
+  },
+  {
     id: "online-savaari",
     name: "Online Ticket Booking System",
     description:
