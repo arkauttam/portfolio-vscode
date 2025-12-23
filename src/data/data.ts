@@ -89,7 +89,7 @@ export const projects: Project[] = [
   },
   {
     id: "messageX-whatsapp",
-    name: "MessageX - WhatsApp-Inspired Frontend Messaging Platform",
+    name: "MessageX - WhatsApp- Messaging Platform",
     description:
       "A production-grade, frontend-only messaging application inspired by WhatsApp, designed to closely replicate real-world chat, status, and call experiences using modern React architecture. The platform simulates authentication, real-time messaging behavior, delivery states, and user presence entirely on the client side, making it ideal for MVPs, demos, and frontend system design showcases.",
     tech: [
