@@ -23,7 +23,7 @@ export function TitleBar() {
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-[#0078d4]">
           <path d="M21.998 5.866L12.9 0.166c-0.556-0.348-1.245-0.349-1.8 0L2.002 5.866C1.447 6.215 1.1 6.826 1.1 7.478v9.044c0 0.652 0.347 1.263 0.902 1.612l9.098 5.7c0.556 0.348 1.245 0.348 1.8 0l9.098-5.7c0.555-0.349 0.902-0.96 0.902-1.612V7.478c0-0.652-0.347-1.263-0.902-1.612zM12 17.5L5.5 12 12 6.5l6.5 5.5-6.5 5.5z" fill="currentColor"/>
         </svg>
-        <span>uttam_ghosh_portfolio - Visual Studio Code</span>
+        <span>kaushik_rana_portfolio - Visual Studio Code</span>
       </div>
 
       {/* Spacer */}

@@ -24,7 +24,7 @@ export function ContactTab() {
     
     // Simulate terminal animation
     const lines = [
-      `$ Connecting to uttam@portfolio...`,
+      `$ Connecting to kaushik@portfolio...`,
       `$ Encrypting message...`,
       `$ Sending from: ${formState.email}`,
       `$ Subject: ${formState.subject}`,
@@ -63,7 +63,7 @@ export function ContactTab() {
           <div className="w-3 h-3 rounded-full bg-yellow-500" />
           <div className="w-3 h-3 rounded-full bg-green-500" />
           <span className="ml-3 text-xs text-muted-foreground font-mono">
-            contact@uttam-ghosh ~ bash
+            contact@kaushik-rana ~ bash
           </span>
         </div>
 
@@ -227,10 +227,10 @@ export function ContactTab() {
           <p className="text-sm text-muted-foreground mb-3">Or connect with me on:</p>
           <div className="flex items-center gap-3">
             {[
-              { icon: Github, href: "https://github.com/arkauttam", label: "GitHub" },
-              { icon: Linkedin, href: "https://www.linkedin.com/in/uttam-ghosh-7187a2258/", label: "LinkedIn" },
+              { icon: Github, href: "https://github.com/arkakaushik", label: "GitHub" },
+              { icon: Linkedin, href: "https://www.linkedin.com/in/kaushik-ghosh-7187a2258/", label: "LinkedIn" },
               { icon: SiWhatsapp, href: "https://wa.me/918967258388", label: "WhatsApp" },
-              { icon: Mail, href: "mailto:uttamghosh7215@gmail.com", label: "Email" },
+              { icon: Mail, href: "mailto:kaushikghosh7215@gmail.com", label: "Email" },
             ].map((social) => (
               <motion.a
                 key={social.label}

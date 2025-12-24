@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { User, MapPin, Mail, Calendar, Award, BookOpen } from "lucide-react";
 import { useEffect, useState } from "react";
 const content = `
-# Uttam Ghosh
+# kaushik rana
 
 ## AI Software Engineer
 
@@ -14,7 +14,7 @@ robust Node.js backends, and production-ready full-stack solutions using MongoDB
 
 ## About Me
 
-Hi, I am Uttam Ghosh, a problem-solving oriented MERN Stack Developer with 2+ years of hands-on experience building scalable, 
+Hi, I am kaushik rana, a problem-solving oriented MERN Stack Developer with 2+ years of hands-on experience building scalable, 
 high-performance web applications. I enjoy working on unique, real-world projects that solve meaningful problems.
 
 My expertise spans the full full-stack development lifecycle—from crafting responsive React interfaces to designing robust Node.js 
@@ -108,10 +108,10 @@ export function AboutTab() {
             whileHover={{ scale: 1.05 }}
             className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-glow-cyan flex items-center justify-center text-3xl font-bold text-primary-foreground"
           >
-            <img src="/uttam.png" alt="Uttam Ghosh" className="w-24 h-24 rounded-full object-cover" />
+            <img src="/kaushik.png" alt="kaushik rana" className="w-24 h-24 rounded-full object-cover" />
           </motion.div>
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-foreground mb-2">Uttam Ghosh</h1>
+            <h1 className="text-3xl font-bold text-foreground mb-2">kaushik rana</h1>
             <div className="h-[28px] overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.p
@@ -136,7 +136,7 @@ export function AboutTab() {
               </span>
               <span className="flex items-center gap-1">
                 <Mail size={14} />
-                uttamghosh7215@gmail.com
+                kaushikrana7215@gmail.com
               </span>
               <span className="flex items-center gap-1">
                 <Calendar size={14} />
@@ -169,7 +169,7 @@ export function AboutTab() {
               About Me
             </h2>
             <p className="text-foreground/80 leading-relaxed mb-4">
-              Hi, I am Uttam Ghosh, a problem-solving oriented MERN Stack Developer with 2+ years of hands-on experience building scalable,
+              Hi, I am kaushik rana, a problem-solving oriented MERN Stack Developer with 2+ years of hands-on experience building scalable,
               high-performance web applications. I enjoy working on unique, real-world projects that solve meaningful problems.
             </p>
             <p className="text-foreground/80 leading-relaxed">
