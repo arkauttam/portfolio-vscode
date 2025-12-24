@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Terminal, Send, CheckCircle, Loader2, Mail, Linkedin, Github, Twitter } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
+import emailjs from "emailjs-com";
 
 export function ContactTab() {
   const [formState, setFormState] = useState({
@@ -9,6 +10,7 @@ export function ContactTab() {
     email: "",
     subject: "",
     message: "",
+    phone: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -17,30 +19,90 @@ export function ContactTab() {
     "$ type your message below...",
     "",
   ]);
+  const updateProgress = async (percent: number) => {
+    setTerminalLines((prev) => [
+      ...prev.slice(0, -1),
+      `$ Sending ██████████ ${percent}%`,
+    ]);
+    await new Promise((r) => setTimeout(r, 300));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate terminal animation
-    const lines = [
-      `$ Connecting to uttam@portfolio...`,
-      `$ Encrypting message...`,
-      `$ Sending from: ${formState.email}`,
-      `$ Subject: ${formState.subject}`,
-      `$ ████████████████████ 100%`,
-      `$ Message sent successfully! ✓`,
-      `$ You'll hear back within 24 hours.`,
-    ];
 
-    for (let i = 0; i < lines.length; i++) {
-      await new Promise((resolve) => setTimeout(resolve, 300));
-      setTerminalLines((prev) => [...prev, lines[i]]);
+    const log = async (text: string) => {
+      setTerminalLines((prev) => [...prev, text]);
+      await new Promise((r) => setTimeout(r, 300));
+    };
+
+    try {
+      await log(`$ Connecting to mail server...`);
+      await log(`$ Name: ${formState.name}`);
+      await log(`$ Phone: ${formState.phone}`);
+      await log(`$ From: ${formState.email}`);
+      await log(`$ Subject: ${formState.subject}`);
+
+      // Start progress
+      setTerminalLines((prev) => [...prev, `$ Sending ██████████ 0%`]);
+
+      await updateProgress(10);
+      await updateProgress(30);
+      await updateProgress(60);
+      await updateProgress(90);
+
+      // SEND EMAIL (real action)
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID!,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID!,
+        {
+          name: formState.name,
+          email: formState.email,
+          phone: formState.phone,
+          subject: formState.subject,
+          message: formState.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY!
+      );
+
+      // Auto-reply
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID!,
+        import.meta.env.VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID!,
+        {
+          name: formState.name,
+          email: formState.email,
+          phone: formState.phone,
+          subject: formState.subject,
+          message: formState.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY!
+      );
+
+      // Final success
+      setTerminalLines((prev) => [
+        ...prev.slice(0, -1),
+        `$ Sending ██████████ 100% ✓`,
+        `$ Message sent successfully`,
+        `$ Auto-reply sent to ${formState.name} ✓`,
+      ]);
+
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error(error);
+
+      setTerminalLines((prev) => [
+        ...prev.slice(0, -1),
+        `$ ERROR: Failed at sending stage ✗`,
+        `$ Please try again later`,
+      ]);
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
-    setIsSubmitted(true);
   };
+
+
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState((prev) => ({
@@ -74,10 +136,11 @@ export function ContactTab() {
               key={i}
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`${
-                line.includes("$") ? "text-syntax-type" : "text-foreground/70"
-              } ${line.includes("✓") ? "text-green-400" : ""}`}
-            >
+              className={`
+              ${line.includes("$") ? "text-syntax-type" : "text-foreground/70"}
+              ${line.includes("✓") ? "text-green-400" : ""}
+              ${line.includes("ERROR") || line.includes("✗") ? "text-red-400" : ""}
+            `}>
               {line || "\u00A0"}
             </motion.div>
           ))}
@@ -118,7 +181,7 @@ export function ContactTab() {
               <button
                 onClick={() => {
                   setIsSubmitted(false);
-                  setFormState({ name: "", email: "", subject: "", message: "" });
+                  setFormState({ name: "", email: "", phone: "", subject: "", message: "" });
                   setTerminalLines([
                     "$ welcome to contact terminal",
                     "$ type your message below...",
@@ -167,6 +230,20 @@ export function ContactTab() {
                     placeholder="john@example.com"
                   />
                 </div>
+              </div>
+              <div>
+                <label className="block text-sm text-muted-foreground mb-1.5">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formState.phone}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-2.5 bg-card border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                  placeholder="+91 1234567890"
+                />
               </div>
 
               <div>

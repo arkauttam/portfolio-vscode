@@ -42,7 +42,7 @@ export function WelcomeTab({ onFileClick }: WelcomeTabProps) {
 
     /* -------- PARTICLES -------- */
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 2000;
+    const particlesCount = 1500;
 
     const posArray = new Float32Array(particlesCount * 3);
     const colorsArray = new Float32Array(particlesCount * 3);
