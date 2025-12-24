@@ -1,6 +1,6 @@
 import { educationData } from "@/data/data";
 import { AnimatePresence, motion } from "framer-motion";
-import { User, MapPin, Mail, Calendar, Award, BookOpen } from "lucide-react";
+import { User, MapPin, Mail, Calendar, Award, BookOpen, Download } from "lucide-react";
 import { useEffect, useState } from "react";
 const content = `
 # Uttam Ghosh
@@ -120,10 +120,18 @@ export function AboutTab() {
             whileHover={{ scale: 1.05 }}
             className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-glow-cyan flex items-center justify-center text-3xl font-bold text-primary-foreground"
           >
-            <img src="/uttam.png" alt="Uttam Ghosh" className="w-24 h-24 rounded-full object-cover" />
+            <img
+              src="/uttam.png"
+              alt="Uttam Ghosh"
+              className="w-24 h-24 rounded-full object-cover"
+            />
           </motion.div>
+
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-foreground mb-2">Uttam Ghosh</h1>
+            <h1 className="text-3xl font-bold text-foreground mb-2">
+              Uttam Ghosh
+            </h1>
+
             <div className="h-[28px] overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.p
@@ -131,17 +139,15 @@ export function AboutTab() {
                   initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
-                  transition={{
-                    duration: 0.6,
-                    ease: "easeInOut",
-                  }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
                   className="text-lg text-syntax-type mb-3"
                 >
                   {roles[index]}
                 </motion.p>
               </AnimatePresence>
             </div>
-            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+
+            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
               <span className="flex items-center gap-1">
                 <MapPin size={14} />
                 Kolkata, IND
@@ -155,8 +161,24 @@ export function AboutTab() {
                 2+ years
               </span>
             </div>
+
+            {/* Download CV Button */}
+            <motion.a
+              href="/UTTAM GHOSH.pdf"
+              download
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg
+                 bg-primary text-primary-foreground text-sm font-medium
+                 shadow hover:shadow-md transition"
+            >
+              <Download size={16} />
+              Download CV
+            </motion.a>
           </div>
+          
         </motion.div>
+
 
         {/* Markdown Content */}
         <div className="prose prose-invert max-w-none">
@@ -239,11 +261,11 @@ export function AboutTab() {
                     >
                       <div className="flex items-center justify-between gap-2">
                         <h4 className="font-semibold text-foreground">
-                            <p
-                              className="text-primary"
-                            >
-                              {item.title}
-                            </p>
+                          <p
+                            className="text-primary"
+                          >
+                            {item.title}
+                          </p>
                         </h4>
                         {item.startDate && item.endDate && (
                           <span className="text-xs rounded-full border border-border px-2 py-0.5 text-muted-foreground">
