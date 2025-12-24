@@ -1,6 +1,6 @@
 import { educationData } from "@/data/data";
 import { AnimatePresence, motion } from "framer-motion";
-import { User, MapPin, Mail, Calendar, Award, BookOpen } from "lucide-react";
+import { User, MapPin, Mail, Calendar, Award, BookOpen, Download } from "lucide-react";
 import { useEffect, useState } from "react";
 const content = `
 # kaushik rana
@@ -143,6 +143,19 @@ export function AboutTab() {
                 2+ years
               </span>
             </div>
+            {/* Download CV Button */}
+            <motion.a
+              href="/KAUSHIK RANA.pdf"
+              download
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-2 inline-flex items-center gap-2 px-4 py-2 rounded-lg
+                 bg-primary text-primary-foreground text-sm font-medium
+                 shadow hover:shadow-md transition"
+            >
+              <Download size={16} />
+              Download CV
+            </motion.a>
           </div>
         </motion.div>
 
