@@ -8,11 +8,10 @@ import {
   Cpu,
   Zap
 } from "lucide-react";
-import { TabId } from "../layout/VSCodeLayout";
 import * as THREE from "three";
 
 interface WelcomeTabProps {
-  onFileClick: (tabId: TabId) => void;
+  onFileClick: (tabId: string) => void;
 }
 
 export function WelcomeTab({ onFileClick }: WelcomeTabProps) {
@@ -40,56 +39,126 @@ export function WelcomeTab({ onFileClick }: WelcomeTabProps) {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     camera.position.z = 5;
 
-    /* -------- PARTICLES -------- */
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 1500;
+    /* -------- METEORS -------- */
+    const meteors: Array<{
+      group: THREE.Group;
+      velocity: THREE.Vector3;
+      startPos: THREE.Vector3;
+      lifeTime: number;
+    }> = [];
 
-    const posArray = new Float32Array(particlesCount * 3);
-    const colorsArray = new Float32Array(particlesCount * 3);
+    const meteorCount = 20;
 
-    for (let i = 0; i < particlesCount * 3; i += 3) {
-      posArray[i] = (Math.random() - 0.5) * 20;
-      posArray[i + 1] = (Math.random() - 0.5) * 20;
-      posArray[i + 2] = (Math.random() - 0.5) * 20;
+    for (let i = 0; i < meteorCount; i++) {
+      const meteorGroup = new THREE.Group();
 
-      const r = Math.random();
-      if (r < 0.33) {
-        colorsArray[i] = 0.33;
-        colorsArray[i + 1] = 0.61;
-        colorsArray[i + 2] = 0.84;
-      } else if (r < 0.66) {
-        colorsArray[i] = 0.31;
-        colorsArray[i + 1] = 0.79;
-        colorsArray[i + 2] = 0.69;
-      } else {
-        colorsArray[i] = 0.77;
-        colorsArray[i + 1] = 0.53;
-        colorsArray[i + 2] = 0.75;
+      // Core (bright white-yellow center) - smaller size
+      const coreGeometry = new THREE.SphereGeometry(0.08, 10, 10);
+      const coreMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFFFFAA,
+        transparent: true,
+        opacity: 1
+      });
+      const core = new THREE.Mesh(coreGeometry, coreMaterial);
+      meteorGroup.add(core);
+
+      // Inner glow (bright yellow-orange) - smaller size
+      const innerGlowGeometry = new THREE.SphereGeometry(0.15, 10, 10);
+      const innerGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFFCC44,
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending
+      });
+      const innerGlow = new THREE.Mesh(innerGlowGeometry, innerGlowMaterial);
+      meteorGroup.add(innerGlow);
+
+      // Middle glow (orange) - smaller size
+      const middleGlowGeometry = new THREE.SphereGeometry(0.25, 10, 10);
+      const middleGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF8844,
+        transparent: true,
+        opacity: 0.5,
+        blending: THREE.AdditiveBlending
+      });
+      const middleGlow = new THREE.Mesh(middleGlowGeometry, middleGlowMaterial);
+      meteorGroup.add(middleGlow);
+
+      // Outer glow (blue-white atmospheric glow) - smaller size
+      const outerGlowGeometry = new THREE.SphereGeometry(0.4, 10, 10);
+      const outerGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0x88CCFF,
+        transparent: true,
+        opacity: 0.3,
+        blending: THREE.AdditiveBlending
+      });
+      const outerGlow = new THREE.Mesh(outerGlowGeometry, outerGlowMaterial);
+      meteorGroup.add(outerGlow);
+
+      // Create multiple trail segments for realistic look - smaller
+      const trailSegments = 80;
+      for (let j = 0; j < trailSegments; j++) {
+        const progress = j / trailSegments;
+        const trailSize = 0.06 - progress * 0.05;
+        const trailLength = 0.8 - progress * 0.15;
+
+        const trailGeometry = new THREE.ConeGeometry(
+          trailSize,
+          trailLength,
+          8
+        );
+        
+        // Color gradient from yellow-white to orange-red
+        let trailColor;
+        if (progress < 0.3) {
+          trailColor = 0xFFFFDD;
+        } else if (progress < 0.6) {
+          trailColor = 0xFFAA66;
+        } else {
+          trailColor = 0xFF6633;
+        }
+
+        const trailMaterial = new THREE.MeshBasicMaterial({
+          color: trailColor,
+          transparent: true,
+          opacity: (1 - progress) * 0.7,
+          blending: THREE.AdditiveBlending
+        });
+
+        const trail = new THREE.Mesh(trailGeometry, trailMaterial);
+        trail.position.x = progress * 0.4;
+        trail.position.y = progress * 0.25;
+        trail.rotation.z = -Math.PI / 2 + Math.PI / 6;
+        meteorGroup.add(trail);
       }
+
+      // Position meteor
+      const startX = Math.random() * 30 + 15;
+      const startY = Math.random() * 25 + 10;
+      const startZ = (Math.random() - 0.5) * 20;
+
+      meteorGroup.position.set(startX, startY, startZ);
+
+      // Rotate entire group to angle the meteor
+      meteorGroup.rotation.z = -Math.PI / 6;
+
+      scene.add(meteorGroup);
+
+      // Velocity - slower speed
+      const speed = Math.random() * 0.08 + 0.1;
+      const velocity = new THREE.Vector3(
+        -speed * 1.5,
+        -speed * 1.0,
+        (Math.random() - 0.5) * 0.08
+      );
+
+      meteors.push({
+        group: meteorGroup,
+        velocity,
+        startPos: new THREE.Vector3(startX, startY, startZ),
+        lifeTime: Math.random() * 100
+      });
     }
-
-    particlesGeometry.setAttribute(
-      "position",
-      new THREE.BufferAttribute(posArray, 3)
-    );
-    particlesGeometry.setAttribute(
-      "color",
-      new THREE.BufferAttribute(colorsArray, 3)
-    );
-
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.03,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.8,
-      blending: THREE.AdditiveBlending
-    });
-
-    const particlesMesh = new THREE.Points(
-      particlesGeometry,
-      particlesMaterial
-    );
-    scene.add(particlesMesh);
 
     /* -------- SHAPES -------- */
     const shapes: THREE.Mesh[] = [];
@@ -150,8 +219,74 @@ export function WelcomeTab({ onFileClick }: WelcomeTabProps) {
     const animate = () => {
       const t = clock.getElapsedTime();
 
-      particlesMesh.rotation.y = t * 0.05;
-      particlesMesh.rotation.x = t * 0.03;
+      // Animate meteors
+      meteors.forEach((meteor) => {
+        meteor.lifeTime += 0.016;
+
+        // Update position
+        meteor.group.position.add(meteor.velocity);
+
+        // Add mouse parallax effect to meteors
+        const targetX = meteor.group.position.x + mouseX * 0.3;
+        const targetY = meteor.group.position.y + mouseY * 0.3;
+        meteor.group.position.x += (targetX - meteor.group.position.x) * 0.02;
+        meteor.group.position.y += (targetY - meteor.group.position.y) * 0.02;
+
+        // Dynamic opacity for flickering effect
+        const fadeProgress = (meteor.lifeTime % 4) / 4;
+        
+        meteor.group.children.forEach((child, index) => {
+          const mesh = child as THREE.Mesh;
+          const material = mesh.material as THREE.MeshBasicMaterial;
+
+          if (index === 0) {
+            // Core - bright flickering
+            material.opacity = 1.0 + Math.sin(t * 30) * 0.2;
+          } else if (index === 1) {
+            // Inner glow
+            material.opacity = 0.8 + Math.sin(t * 20) * 0.15;
+          } else if (index === 2) {
+            // Middle glow
+            material.opacity = 0.5 + Math.sin(t * 15) * 0.1;
+          } else if (index === 3) {
+            // Outer glow
+            material.opacity = 0.3 + Math.sin(t * 10) * 0.1;
+          } else {
+            // Trail segments - fade based on lifetime
+            const baseOpacity = (meteor.group.children.length - index) / meteor.group.children.length;
+            if (fadeProgress < 0.8) {
+              material.opacity = baseOpacity * 0.7;
+            } else {
+              const fadeOut = 1 - (fadeProgress - 0.8) / 0.2;
+              material.opacity = baseOpacity * 0.7 * fadeOut;
+            }
+          }
+        });
+
+        // Overall fade out at end of life
+        if (fadeProgress > 0.8) {
+          const globalFade = 1 - (fadeProgress - 0.8) / 0.2;
+          meteor.group.children.forEach((child) => {
+            const mesh = child as THREE.Mesh;
+            const material = mesh.material as THREE.MeshBasicMaterial;
+            material.opacity *= globalFade;
+          });
+        }
+
+        // Reset meteor when off screen
+        if (
+          meteor.group.position.x < -20 ||
+          meteor.group.position.y < -15
+        ) {
+          const newX = Math.random() * 30 + 15;
+          const newY = Math.random() * 25 + 10;
+          const newZ = (Math.random() - 0.5) * 20;
+
+          meteor.group.position.set(newX, newY, newZ);
+          meteor.startPos.set(newX, newY, newZ);
+          meteor.lifeTime = 0;
+        }
+      });
 
       shapes.forEach((shape, i) => {
         shape.rotation.x = t * (0.3 + i * 0.1);
@@ -182,11 +317,19 @@ export function WelcomeTab({ onFileClick }: WelcomeTabProps) {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationId);
+      
+      meteors.forEach((meteor) => {
+        meteor.group.children.forEach((child) => {
+          const mesh = child as THREE.Mesh;
+          mesh.geometry.dispose();
+          (mesh.material as THREE.Material).dispose();
+        });
+      });
+      
       renderer.dispose();
-      particlesGeometry.dispose();
-      particlesMaterial.dispose();
     };
   }, []);
+  
   const roles = [
     "Software Engineer",
     "Frontend Developer",
@@ -207,6 +350,7 @@ export function WelcomeTab({ onFileClick }: WelcomeTabProps) {
 
     return () => clearInterval(interval);
   }, []);
+  
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#1E1E1E]">
       {/* THREE CANVAS */}
@@ -241,7 +385,6 @@ export function WelcomeTab({ onFileClick }: WelcomeTabProps) {
           </h1>
 
           {/* ROLE */}
-
           <div className="my-4 overflow-hidden text-2xl md:text-3xl mb-4">
             <AnimatePresence mode="wait">
               <motion.p
@@ -265,8 +408,6 @@ export function WelcomeTab({ onFileClick }: WelcomeTabProps) {
             </AnimatePresence>
           </div>
 
-
-
           {/* DESC */}
           <p className="text-lg text-[#d5d7d8] mb-12 max-w-2xl mx-auto">
             Crafting intelligent solutions with{" "}
@@ -275,7 +416,7 @@ export function WelcomeTab({ onFileClick }: WelcomeTabProps) {
             <span className="text-[#569CD6] font-semibold">Production AI</span>
           </p>
 
-          {/* CTA BUTTONS (UNCHANGED STRUCTURE) */}
+          {/* CTA BUTTONS */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -305,9 +446,12 @@ export function WelcomeTab({ onFileClick }: WelcomeTabProps) {
               </span>
             </motion.button>
 
-
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => onFileClick('contact')}
-              className="px-8 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all flex items-center gap-2" >
+            <motion.button 
+              whileHover={{ scale: 1.05 }} 
+              whileTap={{ scale: 0.95 }} 
+              onClick={() => onFileClick('contact')}
+              className="px-8 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all flex items-center gap-2"
+            >
               <Terminal size={20} />
               Get In Touch
             </motion.button>
@@ -337,7 +481,6 @@ export function WelcomeTab({ onFileClick }: WelcomeTabProps) {
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[#569CD6]/20 to-[#C586C0]/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
               <div className="relative p-6 bg-[#252526]/60 backdrop-blur-sm border border-[#333333] rounded-2xl hover:border-[#4EC9B0] transition-all">
-
                 <div
                   className={`text-4xl font-bold mb-2 bg-gradient-to-br ${stat.color} bg-clip-text text-transparent`}
                 >
